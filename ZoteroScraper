@@ -1,0 +1,32 @@
+# Finding Zotero articles hidden behind a paywall
+#
+#
+#
+#
+#
+
+
+library(tidyverse)
+library(rvest)
+library(RCurl)
+library(readr)
+
+
+# Set parameters
+setwd("")
+
+
+# import Zotero CSV
+library(readr)
+My_Library <- read_csv("Desktop/My Library.csv")
+View(My_Library)
+
+# Get list of needed files: DOI
+My_Library %>% filter(!str_detect(`File Attachments`, ".pdf")) %>% select(Key, Title, DOI) %>% na.omit() 
+
+# Download from SCI-hub in https://sci-hub.tw
+library(rvest)
+library(RCurl)
+url <- 'https://sci-hub.tw'
+
+# link to Zotero entry
